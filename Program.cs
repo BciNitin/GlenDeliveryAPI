@@ -2,6 +2,7 @@ using WebApplication1.Data;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using Serilog.Events;
+using BCILLogger;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +13,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<DataContext>(option => { option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));});
+builder.Services.AddSingleton<Logger>();
 
 Log.Logger = new LoggerConfiguration()
     .MinimumLevel.Debug()
